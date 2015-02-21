@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "litversion.js",
+  "sourceRoot": "",
+  "sources": [
+    "litversion.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,EAAA,IAAA,KAAQ,EAAA,CAAG,IAAH,CAAR,CAAA;AAAA"
+}
