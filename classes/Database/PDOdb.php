@@ -15,19 +15,23 @@ class PDOdb
 //$database->bind(':gender', 'male');
 //$database->execute();
 
-    private $_username = 'root';
-    private $_password = '123';
+    private $logger;
+    private $username = 'root';
+    private $password = '123';
     private $stmt;
     private $conn;
 
-    public function __construct()
+    public function __construct($logger)
     {
+        $this->logger = $logger;
+
         try {
-            $this->conn = new \PDO('mysql:host=localhost;dbname=faker', 'root', '123');
+            $this->conn = new \PDO('mysql:host=localhost;dbname=faker', $this->username, $this->password);
             $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        } catch
-        (\PDOException $e) {
-            echo 'ERROR: ' . $e->getMessage();
+
+        } catch (\PDOException $e) {
+            $this->logger->addInfo($e->getMessage());
+            throw new \Exception( 'ERROR: ' . $e->getMessage());
         }
     }
 

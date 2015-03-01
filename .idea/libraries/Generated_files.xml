@@ -3,12 +3,14 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/js/coffee/main.js" />
+        <item url="file://$PROJECT_DIR$/logstash/vendor/bundle/jruby/2.1/gems/sinatra-1.4.5/test/views/hello.js" />
         <item url="file://$PROJECT_DIR$/js/coffee/litversion.js" />
         <item url="file://$PROJECT_DIR$/js/coffee/test.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/js/coffee/main.js" />
+      <root url="file://$PROJECT_DIR$/logstash/vendor/bundle/jruby/2.1/gems/sinatra-1.4.5/test/views/hello.js" />
       <root url="file://$PROJECT_DIR$/js/coffee/litversion.js" />
       <root url="file://$PROJECT_DIR$/js/coffee/test.js" />
     </CLASSES>

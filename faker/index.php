@@ -1,10 +1,17 @@
 <?php
 
 use classes\Database\PDOdb;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 require '../vendor/autoload.php';
 
-$db = new PDOdb;
+// create a log channel
+$log = new Logger('my channel');
+$log->pushHandler(new StreamHandler($_SERVER['DOCUMENT_ROOT'].'/libTest/logs.log', Logger::DEBUG));
+
+$db = new PDOdb($log);
+
 
 // use the factory to create a Faker\Generator instance
 $faker = Faker\Factory::create();
@@ -37,7 +44,7 @@ foreach (nums($num,$results) as $v);
 //}
 
 $fin = microtime();
-echo "<br>".number_format(($fin - $start),5);
+$log->addInfo("process finished in ".number_format(($fin - $start),5));
 
 echo "<br>".count($test);
 
