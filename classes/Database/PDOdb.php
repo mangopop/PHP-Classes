@@ -21,12 +21,12 @@ class PDOdb
     private $stmt;
     private $conn;
 
-    public function __construct($logger)
+    public function __construct($logger =null)
     {
         $this->logger = $logger;
 
         try {
-            $this->conn = new \PDO('mysql:host=localhost;dbname=faker', $this->username, $this->password);
+            $this->conn = new \PDO('mysql:host=localhost;dbname=ecommerce', $this->username, $this->password);
             $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
         } catch (\PDOException $e) {
@@ -34,22 +34,18 @@ class PDOdb
             throw new \Exception( 'ERROR: ' . $e->getMessage());
         }
     }
+//
+//    public function preQuery($query)
+//    {
+//        $this->stmt = $this->conn->prepare($query);
+//    }
 
-    public function preQuery($query)
+    public function query($query)
     {
         $this->stmt = $this->conn->prepare($query);
     }
 
-    public function query($query)
-    {
-        $this->stmt = $this->conn->query($query);
-    }
-
-    public function execute(){
-        return $this->stmt->execute();
-    }
-
-    public function resultset(){
+    public function fetchAll(){
         $this->execute();
         return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -58,6 +54,24 @@ class PDOdb
         $this->execute();
         return $this->stmt->fetch(\PDO::FETCH_ASSOC);
     }
+
+    public function fetchOneById($id,$table){
+        $this->query("SELECT * FROM $table WHERE id=:id");
+        $this->bind(":id", $id);
+        $this->execute();
+        return $this->stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function deleteById($id,$table){
+        $count = $this->conn->exec("DELETE FROM $table WHERE id = $id");
+        return "Deleted $count rows.\n";
+    }
+
+    //run the assigned statement
+    public function execute(){
+        return $this->stmt->execute();
+    }
+
 
     public function rowCount(){
         return $this->stmt->rowCount();
